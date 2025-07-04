@@ -1,0 +1,6 @@
+requests
+cfscrape
+mechanize
+bs4
+colorama
+urllib3<2

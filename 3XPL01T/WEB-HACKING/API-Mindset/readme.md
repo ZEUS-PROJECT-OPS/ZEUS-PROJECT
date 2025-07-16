@@ -15,7 +15,7 @@ http://localhost:3000
 
 - `POST /api/register` – Register a new user
 - `POST /api/login` – Authenticate user and receive JWT token
-- `GET /api/getProfile` – Retrieve user profile (requires token)
+- `GET /api/users` – Retrieve user profile (requires token)
 
 ---
 
@@ -28,6 +28,18 @@ Content-Type: application/json
 
 
 **Request Body:**
+
+{
+  "username": "user",
+  "email": "user@user.com",
+  "password": "user123"
+}
+
+
+GET /api/register HTTP/2
+Host: localhost:3000
+User-Agent: <?>
+Content-Type: application/json
 
 {
   "username": "user",
@@ -56,6 +68,15 @@ Content-Type: application/json
   "password": "user123"
 }
 
+GET /api/login HTTP/2
+Host: localhost:3000
+User-Agent: <?>
+Content-Type: application/json
+
+{
+  "usernameOrEmail": "user",
+  "password": "user123"
+}
 
 Success Response:
 {
@@ -64,13 +85,21 @@ Success Response:
 }
 
 
-## 📥 GET `/api/getProfile`
+## 📥 GET `/api/users`
 
 PROFILE
 
 **Request Headers:**
-Authorization: Bearer <token>
+Authorization: Bearer <token> <br>
 Content-Type: application/json
+
+
+GET /api/users HTTP/2
+Host: localhost:3000
+User-Agent: <?>
+Content-Type: application/json <br>
+Authorization : Bearer  <token>
+
 
 
 Success Response:

@@ -41,6 +41,6 @@ You are free to use, modify, and share this code under ethical and legal terms.
 
 ---
 
-**Thank you,**  
-**Desan**  
+**Kind regards,**  
+**Hackercat**  
 *Founder of ZEUS-PROJECT-OPS*

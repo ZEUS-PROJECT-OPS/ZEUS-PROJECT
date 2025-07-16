@@ -24,10 +24,10 @@ http://localhost:3000
 Registers a new user.
 
 
-GET /api/register HTTP/2
-Host: localhost:3000
-User-Agent: <?>
-Content-Type: application/json
+GET /api/register HTTP/2 <br>
+Host: localhost:3000 <br>
+User-Agent: <?> <br>
+Content-Type: application/json <br>
 
 {
   "username": "user",
@@ -47,17 +47,17 @@ Success Response:
 LOGIN
 
 
-GET /api/login HTTP/2
-Host: localhost:3000
-User-Agent: <?>
-Content-Type: application/json
+GET /api/login HTTP/2 <br>
+Host: localhost:3000 <br>
+User-Agent: <?> <br>
+Content-Type: application/json <br>
 
 {
   "usernameOrEmail": "user",
   "password": "user123"
 }
 
-Success Response:
+Success Response: <br>
 {
   "message": "success",
   "accessToken": "token"
@@ -77,7 +77,7 @@ Authorization : Bearer  <token> <br>
 
 
 
-Success Response:
+Success Response: <br>
 {
     "_id": "6718ddd33ecefa69806ebf71",
     "username": "user",

@@ -23,18 +23,6 @@ http://localhost:3000
 
 Registers a new user.
 
-**Request Headers:**
-Content-Type: application/json
-
-
-**Request Body:**
-
-{
-  "username": "user",
-  "email": "user@user.com",
-  "password": "user123"
-}
-
 
 GET /api/register HTTP/2
 Host: localhost:3000
@@ -58,13 +46,6 @@ Success Response:
 
 LOGIN
 
-**Request Headers:**
-Content-Type: application/json
-
-**Request Body:** {
-  "usernameOrEmail": "user",
-  "password": "user123"
-}
 
 GET /api/login HTTP/2
 Host: localhost:3000
@@ -87,16 +68,12 @@ Success Response:
 
 PROFILE
 
-**Request Headers:**
-Authorization: Bearer <token> <br>
-Content-Type: application/json
 
-
-GET /api/users HTTP/2
-Host: localhost:3000
-User-Agent: <?>
+GET /api/users HTTP/2 <br>
+Host: localhost:3000 <br>
+User-Agent: <?> <br>
 Content-Type: application/json <br>
-Authorization : Bearer  <token>
+Authorization : Bearer  <token> <br>
 
 
 

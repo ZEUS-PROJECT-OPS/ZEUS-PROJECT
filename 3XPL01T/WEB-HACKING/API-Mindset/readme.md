@@ -61,9 +61,7 @@ LOGIN
 **Request Headers:**
 Content-Type: application/json
 
-**Request Body:**
-
-{
+**Request Body:** {
   "usernameOrEmail": "user",
   "password": "user123"
 }

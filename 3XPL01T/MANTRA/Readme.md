@@ -9,6 +9,7 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 <br>
 ```$ cat file.js | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```<br>
 ```$ curl -s URL | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```
+```$ cat x.txt | grep -oP '^\s*/[^:]+'' ```
 
 <br>
 

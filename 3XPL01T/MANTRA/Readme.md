@@ -8,7 +8,7 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 ![JS](https://skillicons.dev/icons?i=js)
 <br>
 ```$ cat file.js | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```<br>
-```$ curl -s URL | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```
+```$ curl -s URL | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```<br>
 ```$ cat x.txt | grep -oP '^\s*/[^:]+'' ```
 
 <br>

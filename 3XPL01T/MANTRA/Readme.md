@@ -11,6 +11,15 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 ```$ curl -s URL | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```<br>
 ```$ cat x.txt | grep -oP '^\s*/[^:]+'' ```
 
+
+
+<br>
+$config['upload_path']    = '.
+<br>
+'upload_dir' => APPPATH . '.
+<br>
+'upload_url' => site_url
+<br>
 <br>
 
 

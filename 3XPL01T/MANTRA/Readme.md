@@ -13,6 +13,25 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 
 
 
+
+
+<br>
+PATH 
+/usr/share/nginx/html/index.php
+<br>
+/home/[name]/public_html/index.php
+<br>
+C:/Apache64/htdocs/
+<br>
+/var/www/html/
+<br>
+
+
+
+
+<br>
+
+
 <br>
 $config['upload_path']    = '.
 <br>

@@ -12,6 +12,8 @@
   "is_moderator": true,
   "multiSiteAdmin": true,
   "isAdmin": true,
+"is_admin": true,
+ "is_verified": true,
   "isSecurityAdmin": true,
   "isSuperAdmin": true,
   "IsManager": true,

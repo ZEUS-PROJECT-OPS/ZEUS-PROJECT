@@ -15,6 +15,9 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 find<br>
 ```/\{([^}]+)\}/``` to ```/```
 
+```find / -type f -name "*.php" -exec grep -li 'tmp_name' {} +```<br>
+
+
 
 <br>
 PATH 

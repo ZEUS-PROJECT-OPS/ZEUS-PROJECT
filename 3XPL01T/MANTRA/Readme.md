@@ -31,6 +31,15 @@ C:/Apache64/htdocs/
 <br>
 
 
+code/xxx/xxx
+'code/xxx/xxx',
+
+<br>
+.* > ^(.+)$ > '$1',
+
+
+
+
 
 
 <br>

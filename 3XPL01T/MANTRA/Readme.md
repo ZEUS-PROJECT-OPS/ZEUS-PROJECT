@@ -10,7 +10,12 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 ```$ cat file.js | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```<br>
 ```$ curl -s URL | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u```<br>
 ```$ cat x.txt | grep -oP '^\s*/[^:]+'' ```<br>
-```cat api-4-10-2026.txt | grep -E '^  /[^:]+:' | sed 's/^  //' | sed 's/:$//'```<br>
+```$ cat api-4-10-2026.txt | grep -E '^  /[^:]+:' | sed 's/^  //' | sed 's/:$//'```<br>
+```$ python3 linkfinder.py -i https://example.com/x/xxxx.js -o cli```<br>
+```$ python3 sqlmap.py -r x.txt --batch --dbs --level=3 --risk=3 --random-agent```<br>
+```$  ffuf -u https://example.com/FUZZ --rate 10 -w /mnt/e/wordlist.txt -mc all -fc 404,301,502,500,400,403 -H "apikey: xxxxx"```<br>
+
+
 
 find<br>
 ```/\{([^}]+)\}/``` to ```/```

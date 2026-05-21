@@ -15,7 +15,10 @@ Find Sensitif / Gold / Hoki / Endpoint in JS <br>
 ```$ python3 sqlmap.py -r x.txt --batch --dbs --level=3 --risk=3 --random-agent```<br>
 ```$  ffuf -u https://example.com/FUZZ --rate 10 -w /mnt/e/wordlist.txt -mc all -fc 404,301,502,500,400,403 -H "apikey: xxxxx"```<br>
 
-
+Kasus 1: Menghapus baris kosong berlebih <br>
+Find: ^\s*\n <br>
+Replace: '' (kosong) <br>
+Settings: Klik icon .* (Use Regular Expression) <br>
 
 find<br>
 ```/\{([^}]+)\}/``` to ```/```

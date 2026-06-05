@@ -26,6 +26,10 @@ find<br>
 ```find / -type f -name "*.php" -exec grep -li 'tmp_name' {} +```<br>
 
 ```find f ^/```
+```\?.*$``` kekanan
+```^.*\?``` kekiri
+
+
 
 <br>
 PATH 

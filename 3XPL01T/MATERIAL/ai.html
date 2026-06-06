@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swagger Endpoint Extractor - Simple & Works!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e0a;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            color: #0f0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .sub {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #6f6;
+            font-size: 0.8rem;
+        }
+
+        .box {
+            background: #0a1a0a;
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .box-header {
+            background: #0a2a0a;
+            padding: 10px 15px;
+            border-bottom: 1px solid #0f0;
+            font-weight: bold;
+        }
+
+        .box-body {
+            padding: 15px;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            background: #051005;
+            border: 1px solid #0f0;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            padding: 10px;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: #0a2a0a;
+            border: 1px solid #0f0;
+            color: #0f0;
+            font-family: monospace;
+            padding: 8px 20px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #0f3f0f;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            background: #0a2a0a;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border-left: 3px solid #0f0;
+        }
+
+        .stat span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .result-list {
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .endpoint-row {
+            padding: 6px 10px;
+            border-bottom: 1px solid #1a3a1a;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .endpoint-row:hover {
+            background: #0a2a0a;
+        }
+
+        .method {
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            min-width: 60px;
+            display: inline-block;
+        }
+
+        .method-GET {
+            color: #0f0;
+        }
+
+        .method-POST {
+            color: #6f6;
+        }
+
+        .method-PUT {
+            color: #ff0;
+        }
+
+        .method-DELETE {
+            color: #f66;
+        }
+
+        .method-PATCH {
+            color: #c6f;
+        }
+
+        .path {
+            word-break: break-all;
+        }
+
+        .output-text {
+            width: 100%;
+            height: 450px;
+            font-size: 12px;
+        }
+
+        .status {
+            margin-top: 10px;
+            padding: 8px;
+            border-left: 3px solid #0f0;
+            background: #0a1a0a;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.error {
+            border-left-color: #f00;
+            color: #f88;
+        }
+
+        @media (max-width: 800px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>⚡ SWAGGER ENDPOINT EXTRACTOR ⚡</h1>
+        <div class="sub">Extract ALL endpoints with methods (GET/POST/PUT/PATCH/DELETE) - Ready for FFUF</div>
+
+        <div class="box">
+            <div class="box-header">📥 INPUT</div>
+            <div class="box-body">
+                <input type="text" id="urlInput" placeholder="https://example.com/swagger.json or /swagger/index.html">
+                <div style="margin: 10px 0; text-align: center;">— ATAU —</div>
+                <textarea id="pasteInput" placeholder="Paste Swagger JSON / YAML / OpenAPI content here..."></textarea>
+                <div>
+                    <button id="btnUrl">🌐 SCAN FROM URL</button>
+                    <button id="btnPaste">📋 SCAN FROM PASTE</button>
+                    <button id="btnClear">🗑️ CLEAR</button>
+                </div>
+                <div id="statusMsg" class="status"></div>
+            </div>
+        </div>
+
+        <div class="stats" id="statsPanel" style="display: none;">
+            <div class="stat">📊 Total: <span id="totalCount">0</span></div>
+            <div class="stat">GET: <span id="getCount">0</span></div>
+            <div class="stat">POST: <span id="postCount">0</span></div>
+            <div class="stat">PUT: <span id="putCount">0</span></div>
+            <div class="stat">PATCH: <span id="patchCount">0</span></div>
+            <div class="stat">DELETE: <span id="deleteCount">0</span></div>
+            <div class="stat">📌 With {param}: <span id="paramCount">0</span></div>
+        </div>
+
+        <div class="two-col">
+            <div class="box">
+                <div class="box-header">📡 ENDPOINTS (Method + Path) - klik untuk copy path</div>
+                <div class="box-body result-list" id="endpointsList">
+                    <div style="text-align:center; padding:40px;">⬆️ Scan Swagger dulu ⬆️</div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header">📋 FFUF READY (Path only) - copy & paste ke wordlist</div>
+                <div class="box-body">
+                    <textarea id="outputPaths" class="output-text" placeholder="Paths will appear here..."></textarea>
+                    <div style="margin-top:10px;">
+                        <button id="copyPathsBtn">📋 COPY PATHS</button>
+                        <button id="copyAllBtn">📋 COPY METHOD+PATH</button>
+                        <button id="clearOutputBtn">🗑️ CLEAR OUTPUT</button>
+                    </div>
+                    <div style="margin-top:10px; font-size:11px; color:#6f6;">
+                        💡 ffuf -u https://target.com/FUZZ -w wordlist.txt -mc all -fc 404
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // Simple Matrix background
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.zIndex = '-1';
+            canvas.style.opacity = '0.05';
+            canvas.style.pointerEvents = 'none';
+            document.body.appendChild(canvas);
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const chars = '01アイウエオ';
+            let drops = [];
+            function drawMatrix() {
+                if (!canvas.width || !canvas.height) return;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = 'rgba(0,0,0,0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0f0';
+                ctx.font = '12px monospace';
+                const cols = Math.floor(canvas.width / 15);
+                if (drops.length === 0) {
+                    for (let i = 0; i < cols; i++) drops[i] = 1;
+                }
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * 15, drops[i] * 12);
+                    if (drops[i] * 12 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+            }
+            setInterval(drawMatrix, 50);
+
+            // ============ EXTRACTOR ============
+            let currentEndpoints = []; // { method, path }
+
+            function showStatus(msg, isError) {
+                const el = document.getElementById('statusMsg');
+                el.textContent = msg;
+                el.className = 'status show';
+                if (isError) el.classList.add('error');
+                else el.classList.remove('error');
+                setTimeout(() => el.classList.remove('show'), 4000);
+            }
+
+            function cleanPath(p) {
+                if (!p) return '';
+                p = p.replace(/\/$/, '');
+                if (!p.startsWith('/')) p = '/' + p;
+                p = p.replace(/\/+/g, '/');
+                p = p.replace(/["']/g, '');
+                return p;
+            }
+
+            // Extract from JSON (Swagger/OpenAPI)
+            function extractFromJSON(obj) {
+                const results = [];
+                let basePath = obj.basePath || '';
+                if (obj.servers && obj.servers.length > 0 && obj.servers[0].url) {
+                    basePath = obj.servers[0].url;
+                }
+
+                if (obj.paths) {
+                    for (const [path, methods] of Object.entries(obj.paths)) {
+                        const methodList = ['get', 'post', 'put', 'delete', 'patch', 'options', 'head'];
+                        for (const method of methodList) {
+                            if (methods && methods[method]) {
+                                let fullPath = path;
+                                if (basePath && basePath !== '/') {
+                                    fullPath = (basePath + path).replace(/\/+/g, '/');
+                                }
+                                fullPath = cleanPath(fullPath);
+                                results.push({ method: method.toUpperCase(), path: fullPath });
+                            }
+                        }
+                    }
+                }
+                return results;
+            }
+
+            // Extract from YAML/Text using regex
+            function extractFromText(content) {
+                const results = [];
+                const seen = new Set();
+
+                // Pattern 1: "/path/to/endpoint": { "get": { ...
+                const pattern1 = /"([^"]+)":\s*{\s*"(get|post|put|delete|patch)"/gi;
+                let match;
+                while ((match = pattern1.exec(content)) !== null) {
+                    let path = cleanPath(match[1]);
+                    let method = match[2].toUpperCase();
+                    const key = `${method}|${path}`;
+                    if (!seen.has(key) && path.length > 1) {
+                        seen.add(key);
+                        results.push({ method, path });
+                    }
+                }
+
+                // Pattern 2: YAML format with path: then indented method:
+                // /some/path/{id}:
+                //   put:
+                //   get:
+                const lines = content.split('\n');
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    // Check if line has a path ending with :
+                    const pathMatch = line.match(/^[\s]*["']?(\/[a-zA-Z0-9_\-/{}]+)["']?\s*:\s*$/);
+                    if (pathMatch) {
+                        let path = cleanPath(pathMatch[1]);
+                        if (path.length > 1) {
+                            // Look ahead for methods
+                            let indent = line.match(/^[\s]*/)[0].length;
+                            for (let j = i + 1; j < Math.min(i + 25, lines.length); j++) {
+                                const nextLine = lines[j];
+                                const methodMatch = nextLine.match(/^[\s]{2,}(get|post|put|delete|patch):/i);
+                                if (methodMatch) {
+                                    let method = methodMatch[1].toUpperCase();
+                                    const key = `${method}|${path}`;
+                                    if (!seen.has(key)) {
+                                        seen.add(key);
+                                        results.push({ method, path });
+                                    }
+                                }
+                                // Check if indent decreases (new path)
+                                const nextIndent = nextLine.match(/^[\s]*/)[0].length;
+                                if (nextIndent <= indent && nextLine.match(/:\s*$/)) break;
+                            }
+                        }
+                    }
+                }
+
+                // Pattern 3: Simple path with {param}
+                const paramPaths = content.match(/\/[a-zA-Z0-9_\-/]+\{[a-zA-Z_]+\}[a-zA-Z0-9_\-/]*/g);
+                if (paramPaths) {
+                    for (let p of paramPaths) {
+                        let path = cleanPath(p);
+                        if (path.length > 1 && !results.some(r => r.path === path)) {
+                            // Guess methods from context
+                            const ctx = content.substring(Math.max(0, content.indexOf(p) - 500), content.indexOf(p) + 500).toLowerCase();
+                            let methods = [];
+                            if (ctx.includes('put:')) methods.push('PUT');
+                            if (ctx.includes('patch:')) methods.push('PATCH');
+                            if (ctx.includes('get:')) methods.push('GET');
+                            if (ctx.includes('post:')) methods.push('POST');
+                            if (ctx.includes('delete:')) methods.push('DELETE');
+                            if (methods.length === 0) methods = ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'];
+                            for (let method of methods) {
+                                const key = `${method}|${path}`;
+                                if (!seen.has(key)) {
+                                    seen.add(key);
+                                    results.push({ method, path });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return results;
+            }
+
+            function extractAll(content) {
+                let endpoints = [];
+
+                // Try JSON
+                try {
+                    const json = JSON.parse(content);
+                    const jsonEndpoints = extractFromJSON(json);
+                    if (jsonEndpoints.length > 0) {
+                        endpoints = endpoints.concat(jsonEndpoints);
+                    }
+                } catch (e) { }
+
+                // Try text/YAML
+                const textEndpoints = extractFromText(content);
+                for (const ep of textEndpoints) {
+                    if (!endpoints.some(e => e.method === ep.method && e.path === ep.path)) {
+                        endpoints.push(ep);
+                    }
+                }
+
+                // Deduplicate
+                const unique = new Map();
+                for (const ep of endpoints) {
+                    const key = `${ep.method}|${ep.path}`;
+                    if (!unique.has(key)) {
+                        unique.set(key, ep);
+                    }
+                }
+
+                let result = Array.from(unique.values());
+                // Sort by path then method
+                result.sort((a, b) => {
+                    if (a.path !== b.path) return a.path.localeCompare(b.path);
+                    const order = { GET: 1, POST: 2, PUT: 3, PATCH: 4, DELETE: 5 };
+                    return (order[a.method] || 99) - (order[b.method] || 99);
+                });
+
+                return result;
+            }
+
+            function updateStats(endpoints) {
+                let get = 0, post = 0, put = 0, patch = 0, del = 0, withParam = 0;
+                for (const ep of endpoints) {
+                    if (ep.method === 'GET') get++;
+                    else if (ep.method === 'POST') post++;
+                    else if (ep.method === 'PUT') put++;
+                    else if (ep.method === 'PATCH') patch++;
+                    else if (ep.method === 'DELETE') del++;
+                    if (ep.path.includes('{')) withParam++;
+                }
+                document.getElementById('totalCount').innerText = endpoints.length;
+                document.getElementById('getCount').innerText = get;
+                document.getElementById('postCount').innerText = post;
+                document.getElementById('putCount').innerText = put;
+                document.getElementById('patchCount').innerText = patch;
+                document.getElementById('deleteCount').innerText = del;
+                document.getElementById('paramCount').innerText = withParam;
+                document.getElementById('statsPanel').style.display = 'flex';
+            }
+
+            function renderEndpoints(endpoints) {
+                const container = document.getElementById('endpointsList');
+                const outputText = document.getElementById('outputPaths');
+
+                if (!endpoints.length) {
+                    container.innerHTML = '<div style="text-align:center; padding:40px;">⚠️ Tidak ada endpoint ditemukan</div>';
+                    outputText.value = '# No endpoints found';
+                    updateStats([]);
+                    return;
+                }
+
+                // Group by path for display
+                const grouped = new Map();
+                for (const ep of endpoints) {
+                    if (!grouped.has(ep.path)) grouped.set(ep.path, []);
+                    grouped.get(ep.path).push(ep.method);
+                }
+
+                let html = '';
+                for (const [path, methods] of grouped) {
+                    let pathDisplay = path.replace(/\{[^}]+\}/g, m => `<span style="color:#fa0;">${m}</span>`);
+                    html += `<div style="margin-bottom:12px;">`;
+                    html += `<div style="color:#fa0; font-size:12px; padding:4px 0;">📁 ${pathDisplay}</div>`;
+                    for (const method of methods) {
+                        html += `
+                        <div class="endpoint-row" onclick="copyPath('${path.replace(/'/g, "\\'")}')">
+                            <span class="method method-${method}">${method}</span>
+                            <span class="path">${escapeHtml(path)}</span>
+                            <span style="color:#6f6;">📋</span>
+                        </div>
+                    `;
+                    }
+                    html += `</div>`;
+                }
+                container.innerHTML = html;
+
+                // Unique paths for FFUF
+                const uniquePaths = [...new Set(endpoints.map(ep => ep.path))];
+                outputText.value = uniquePaths.join('\n');
+
+                updateStats(endpoints);
+            }
+
+            function escapeHtml(str) {
+                return str.replace(/[&<>]/g, function (m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    return m;
+                });
+            }
+
+            window.copyPath = function (path) {
+                navigator.clipboard.writeText(path);
+                showStatus(`✅ Copied: ${path}`, false);
+            };
+
+            async function scanFromUrl() {
+                const url = document.getElementById('urlInput').value.trim();
+                if (!url) {
+                    showStatus('❌ Masukkan URL Swagger!', true);
+                    return;
+                }
+                showStatus('🔄 Fetching...', false);
+                try {
+                    let fullUrl = url;
+                    if (url.startsWith('/')) fullUrl = window.location.origin + url;
+                    const resp = await fetch(fullUrl);
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    const text = await resp.text();
+                    const endpoints = extractAll(text);
+                    currentEndpoints = endpoints;
+                    renderEndpoints(currentEndpoints);
+                    showStatus(`✅ Berhasil! Ditemukan ${endpoints.length} endpoint`, false);
+                } catch (err) {
+                    showStatus(`❌ Error: ${err.message}`, true);
+                }
+            }
+
+            function scanFromPaste() {
+                const text = document.getElementById('pasteInput').value.trim();
+                if (!text) {
+                    showStatus('❌ Paste Swagger content dulu!', true);
+                    return;
+                }
+                showStatus('🔄 Processing...', false);
+                setTimeout(() => {
+                    try {
+                        const endpoints = extractAll(text);
+                        currentEndpoints = endpoints;
+                        renderEndpoints(currentEndpoints);
+                        showStatus(`✅ Berhasil! Ditemukan ${endpoints.length} endpoint`, false);
+                    } catch (err) {
+                        showStatus(`❌ Error: ${err.message}`, true);
+                    }
+                }, 50);
+            }
+
+            function copyPathsOnly() {
+                const uniquePaths = [...new Set(currentEndpoints.map(ep => ep.path))];
+                if (!uniquePaths.length) {
+                    showStatus('❌ Tidak ada path untuk di-copy', true);
+                    return;
+                }
+                navigator.clipboard.writeText(uniquePaths.join('\n'));
+                showStatus(`✅ Copied ${uniquePaths.length} paths`, false);
+            }
+
+            function copyAllMethods() {
+                if (!currentEndpoints.length) {
+                    showStatus('❌ Tidak ada endpoint', true);
+                    return;
+                }
+                const text = currentEndpoints.map(ep => `${ep.method} ${ep.path}`).join('\n');
+                navigator.clipboard.writeText(text);
+                showStatus(`✅ Copied ${currentEndpoints.length} endpoints`, false);
+            }
+
+            function clearAll() {
+                document.getElementById('urlInput').value = '';
+                document.getElementById('pasteInput').value = '';
+                document.getElementById('outputPaths').value = '';
+                currentEndpoints = [];
+                document.getElementById('endpointsList').innerHTML = '<div style="text-align:center; padding:40px;">⬆️ Scan Swagger dulu ⬆️</div>';
+                document.getElementById('statsPanel').style.display = 'none';
+                showStatus('🧹 Cleared', false);
+            }
+
+            function clearOutput() {
+                document.getElementById('outputPaths').value = '';
+                showStatus('🗑️ Output cleared', false);
+            }
+
+            // Event bindings
+            document.getElementById('btnUrl').addEventListener('click', scanFromUrl);
+            document.getElementById('btnPaste').addEventListener('click', scanFromPaste);
+            document.getElementById('btnClear').addEventListener('click', clearAll);
+            document.getElementById('copyPathsBtn').addEventListener('click', copyPathsOnly);
+            document.getElementById('copyAllBtn').addEventListener('click', copyAllMethods);
+            document.getElementById('clearOutputBtn').addEventListener('click', clearOutput);
+
+            console.log('Ready!');
+        })();
+    </script>
+</body>
+
+</html>

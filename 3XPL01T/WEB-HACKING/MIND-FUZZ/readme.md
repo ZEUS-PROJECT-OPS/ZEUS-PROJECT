@@ -10,6 +10,7 @@ https://admin.Target.com:8080/admin/FUZZ<br>
 https://admin.Target.com:8080/admin/FUZZ.{ektensi}?filename=/admin/download.php<br>
 https://admin.Target.com:8080/admin/download.php?FUZZ=/admin/download.php<br>
 https://admin.Target.com:8080/admin/download?FUZZ=/admin/download.php<br>
+https://admin.Target.com:8080/endpoint/FUZZ/?id=3773<br>
 https://admin.Target.com:8080/endpoint?id=3773-FUZZ<br>
 https://adminFUZZ.Target.com<br>
 

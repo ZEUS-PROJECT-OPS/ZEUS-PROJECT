@@ -50,15 +50,14 @@ https://github.com/orwagodfather/WordList/blob/main/iis.txt
 $ shortscan url
 
 
-$ ffuf -w iis.txt -u https://site.com/gpsgatFUZZ
-$ ffuf -w iis.txt -u https://site.com/gpsgat_FUZZ
-$ ffuf -w iis.txt -u https://site.com/gpsgat.FUZZ
-$ ffuf -w iis.txt -u https://site.com/gpsgat-FUZZ
-$ ffuf -w iis.txt -u https://site.com/gpsgat%20FUZZ
-https://github.com/bitquark/shortscan
-https://github.com/orwagodfather/WordList/
-blob/main/iis.txt
-$ ffuf -w iis.txt -u https://site.com/gps.gatFUZZ
+$ ffuf -w iis.txt -u https://site.com/gpsgatFUZZ <br>
+$ ffuf -w iis.txt -u https://site.com/gpsgat_FUZZ <br> 
+$ ffuf -w iis.txt -u https://site.com/gpsgat.FUZZ <br>
+$ ffuf -w iis.txt -u https://site.com/gpsgat-FUZZ <br>
+$ ffuf -w iis.txt -u https://site.com/gpsgat%20FUZZ <br>
+https://github.com/bitquark/shortscan <br> 
+https://github.com/orwagodfather/WordList/blob/main/iis.txt <br>
+$ ffuf -w iis.txt -u https://site.com/gps.gatFUZZ <br>
 
 
 DEFAULT CREDENTIALS OR RESPONSE MANIPULATION

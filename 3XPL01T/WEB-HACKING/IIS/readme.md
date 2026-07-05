@@ -7,26 +7,26 @@ Trade name/Organization name > ASN ((AS7182, AS...) ) >  CIDR (17.84.0.0/16) > I
 domain > subdomain > IP > Port > endpoint > https://17.84.76.128:3000/admin/dashboard.aspx 
 TRADE NAME >> Organisasi (O)	AT&T Services, Inc.
 
-ASN ENUMERATION
-https://whois.ipip.net/search/ATT
-ASN Number : AS797 
-ASN Name : blablabla
+ASN ENUMERATION <br> 
+https://whois.ipip.net/search/ATT <br>
+ASN Number : AS797  <br>
+ASN Name : blablabla <br>
 
 
 
-CIDR
-https://bgp.he.net/AS797#_prefixes
-ASN Number
-Trade name
-CIDR
+CIDR <br>
+https://bgp.he.net/AS797#_prefixes <br>
+ASN Number <br>
+Trade name <br> 
+CIDR <br>
 
 
-SHODAN
-ssl:”Trade Name”
-ssl:”Organization Name”
-ssl.cert.subject.CN:”target.com”
-asn:AS9999
-http.favicon.hash:-1274734426
+SHODAN <br>
+ssl:”Trade Name” <br>
+ssl:”Organization Name” <br> 
+ssl.cert.subject.CN:”target.com” <br> 
+asn:AS9999 <br> 
+http.favicon.hash:-1274734426 <br>
 
 
 CENSYS

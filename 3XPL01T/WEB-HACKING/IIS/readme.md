@@ -44,10 +44,10 @@ $ ffuf -w fuzz.txt -u https://IP:5010/FUZZ -c -v -recursion
 
 
 IIS ENUMERATION
-product:"Microsoft IIS httpd" (shodan)
-https://github.com/bitquark/shortscan
-https://github.com/orwagodfather/WordList/blob/main/iis.txt
-$ shortscan url
+product:"Microsoft IIS httpd" (shodan) <br>
+https://github.com/bitquark/shortscan <br>
+https://github.com/orwagodfather/WordList/blob/main/iis.txt <br>
+$ shortscan url <br>
 
 
 $ ffuf -w iis.txt -u https://site.com/gpsgatFUZZ <br>
@@ -60,7 +60,7 @@ https://github.com/orwagodfather/WordList/blob/main/iis.txt <br>
 $ ffuf -w iis.txt -u https://site.com/gps.gatFUZZ <br>
 
 
-DEFAULT CREDENTIALS OR RESPONSE MANIPULATION
+DEFAULT CREDENTIALS OR RESPONSE MANIPULATION <br>
 admin:admin
 test:test
 username:password
@@ -69,11 +69,11 @@ user:pwd
 subdomain.att.com:subdomain.att.com
 
 
-SOURCE CODE ANALYSIS
+SOURCE CODE ANALYSIS <br>
 .dll, .exe, .dac, .dat, .jnlp, .jar, extract
 using decompiler.com
 
-URL: https://IP/
+URL: https://IP/ <br>
 Running: Microsoft-IIS/10.0 (ASP.NET v4.0.30319)
 Vulnerable: Yes!
 ══════════════════════════════════════
@@ -83,13 +83,13 @@ webadmin~1.DLL webadmin.DLL?
 
 
 
-https://otx.alienvault.com/api/v1/indicators/domain/target.com/url_list?limit=100&page=1
-https://web.archive.org/cdx/search/cdx?url=*.target.com/*&output=text&fl=original&collapse=urlkey
-https://urlscan.io/api/v1/search/?q=domain:target.com&size=10000
+https://otx.alienvault.com/api/v1/indicators/domain/target.com/url_list?limit=100&page=1 <br>
+https://web.archive.org/cdx/search/cdx?url=*.target.com/*&output=text&fl=original&collapse=urlkey <br>
+https://urlscan.io/api/v1/search/?q=domain:target.com&size=10000 <br>
 
 
-ONELINER FOR COLLECTING ENDPOINT
-$ curl -sk "https://urlscan.io/api/v1/search/?q=domain:att.com&size=10000" | grep '"url"' | sort -u | sed -n 's/.*"url": "\(.*\)".*/\1/p'
+ONELINER FOR COLLECTING ENDPOINT <br>
+$ curl -sk "https://urlscan.io/api/v1/search/?q=domain:att.com&size=10000" | grep '"url"' | sort -u | sed -n 's/.*"url": "\(.*\)".*/\1/p' <br>
 $ curl -sk "https://otx.alienvault.com/api/v1/indicators/domain/target.com/url_list?limit=100&page=1" | jq | grep '"url"' | sort -u | sed -n 's/.*"url": "\(.*\)".*/\1/p'
 
 

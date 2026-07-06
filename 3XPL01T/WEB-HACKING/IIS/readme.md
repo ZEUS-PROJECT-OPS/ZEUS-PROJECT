@@ -47,6 +47,7 @@ IIS ENUMERATION
 product:"Microsoft IIS httpd" (shodan) <br>
 https://github.com/bitquark/shortscan <br>
 https://github.com/orwagodfather/WordList/blob/main/iis.txt <br>
+$ /usr/bin/shortscan https://site.com/ --wordlist /mnt/e/x/api/iis.txt <br>
 $ shortscan url <br>
 <img width="1050" height="301" alt="image" src="https://github.com/user-attachments/assets/43967c06-2a64-423f-961c-49f1c98000a3" /> <br>
 <img width="821" height="463" alt="image" src="https://github.com/user-attachments/assets/a9e1f079-1a25-4cd3-a199-2c2c99d8e2ed" /> <br>

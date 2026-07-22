@@ -25,3 +25,22 @@
 
   "accountStatus": "Enabled"
 }
+
+
+
+
+```
+
+
+
+
+
+Prototype pollution
+"__proto__":{"isadmin"},
+
+
+
+
+
+
+
